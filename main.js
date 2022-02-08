@@ -14,7 +14,6 @@ let player = {
     ctx.fillRect(this.x, this.y, this.width, this.height)
   }
 }
-player.draw()
 
 class obstacle{
   constructor(){
@@ -31,3 +30,13 @@ class obstacle{
 
 const abc = new obstacle()
 abc.draw()
+
+function moveObstacle(){
+  requestAnimationFrame(moveObstacle)
+  abc.x--
+  ctx.clearRect(0,0, canvas.width, canvas.height)
+  abc.draw()
+  player.draw()
+}
+
+moveObstacle()
