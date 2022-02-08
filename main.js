@@ -28,14 +28,29 @@ class obstacle{
   }
 }
 
-const abc = new obstacle()
-abc.draw()
+let obstacleList = []
+let timer = 0
 
 function moveObstacle(){
   requestAnimationFrame(moveObstacle)
-  abc.x--
+  timer++
   ctx.clearRect(0,0, canvas.width, canvas.height)
-  abc.draw()
+
+  if(timer % 100 == 0){
+    let newObstacle = new obstacle()
+    obstacleList.push(newObstacle)
+  }
+
+  obstacleList.forEach((obstacle, i, o)=>{
+    if(obstacle.x < 300){
+      o.splice(i,1)
+    }
+    else{
+      obstacle.x--
+    }
+    obstacle.draw()
+  })
+  
   player.draw()
 }
 
