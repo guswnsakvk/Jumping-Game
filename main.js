@@ -33,6 +33,7 @@ let obstacleList = []
 let timer = 0
 let jump = false
 let jumping = false
+let randNum = Math.floor(Math.random() * 10 + 1)
 let animation
 
 function moveObstacle(){
@@ -41,28 +42,29 @@ function moveObstacle(){
   score.innerText = parseInt(timer / 75)
   ctx.clearRect(0,0, canvas.width, canvas.height)
 
-  if(timer % 100 == 0){
+  if(parseInt(timer / 50) % randNum == 0 & parseInt(timer / 50) > 5){
     let newObstacle = new obstacle()
     obstacleList.push(newObstacle)
+    randNum = Math.floor(Math.random() * 10 + 1)
   }
 
   obstacleList.forEach((obstacle, i, o)=>{
-    if(obstacle.x < 300){
+    if(obstacle.x < 300){ 
       o.splice(i,1)
     }
     else{
-      obstacle.x--
+      obstacle.x -= 3
     }
     collision(player, obstacle)
     obstacle.draw()
   })
   
-  if(jump == true && player.y > 100){
-    player.y -= 2
+  if(jump == true && player.y > 50){
+    player.y -= 2.5
   } else{
     jump = false
       if(player.y < 200){
-        player.y += 2
+        player.y += 2.5
       }
       else if(player.y == 200){
         jumping = false
