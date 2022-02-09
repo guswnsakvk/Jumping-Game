@@ -30,6 +30,8 @@ class obstacle{
 
 let obstacleList = []
 let timer = 0
+let jump = false
+let jumping = false
 
 function moveObstacle(){
   requestAnimationFrame(moveObstacle)
@@ -51,7 +53,32 @@ function moveObstacle(){
     obstacle.draw()
   })
   
+  if(jump == true && player.y > 100){
+    player.y -= 2
+  } else{
+    jump = false
+      if(player.y < 200){
+        player.y += 2
+      }
+      if(player.y == 200){
+        jumping = false
+      }
+  }
+
   player.draw()
 }
 
 moveObstacle()
+
+function playerJump(){
+  window.addEventListener('keydown', function(e){
+    if(jumping == false){
+      if(e.code === 'Space'){
+        jump = true
+      }
+    }
+    jumping = true
+  })
+}
+
+playerJump()
