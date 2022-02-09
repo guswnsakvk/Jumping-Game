@@ -32,9 +32,10 @@ let obstacleList = []
 let timer = 0
 let jump = false
 let jumping = false
+let animation
 
 function moveObstacle(){
-  requestAnimationFrame(moveObstacle)
+  animation = requestAnimationFrame(moveObstacle)
   timer++
   ctx.clearRect(0,0, canvas.width, canvas.height)
 
@@ -50,6 +51,7 @@ function moveObstacle(){
     else{
       obstacle.x--
     }
+    collision(player, obstacle)
     obstacle.draw()
   })
   
@@ -60,7 +62,7 @@ function moveObstacle(){
       if(player.y < 200){
         player.y += 2
       }
-      if(player.y == 200){
+      else if(player.y == 200){
         jumping = false
       }
   }
@@ -82,3 +84,11 @@ function playerJump(){
 }
 
 playerJump()
+
+function collision(player, obstacle){
+  let defX = obstacle.x - (player.x + player.width)
+  let defY = obstacle.y - (player.y + player.height)
+  if(defX < 0 && defY < 0){
+    cancelAnimationFrame(animation)
+  }
+}
