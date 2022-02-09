@@ -1,5 +1,6 @@
 const canvas = document.querySelector("#canvas")
 const ctx = canvas.getContext("2d")
+const score = document.querySelector(".score")
 
 canvas.width = window.innerWidth - 100
 canvas.height = window.innerHeight - 150
@@ -37,6 +38,7 @@ let animation
 function moveObstacle(){
   animation = requestAnimationFrame(moveObstacle)
   timer++
+  score.innerText = parseInt(timer / 75)
   ctx.clearRect(0,0, canvas.width, canvas.height)
 
   if(timer % 100 == 0){
