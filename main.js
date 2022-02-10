@@ -14,7 +14,7 @@ let player = {
   x: 300,
   y: 200,
   width: 59,
-  height: 50,
+  height: 65,
   draw(timer){
     if(parseInt(timer / 30) % 2 == 0){
       ctx.drawImage(dinoLeft, this.x, this.y-17)
@@ -36,6 +36,7 @@ class obstacle{
     this.height = 50
   }
   draw(){
+    
     ctx.drawImage(cactus, this.x-13, this.y+2)
   }
 }
