@@ -5,27 +5,38 @@ const score = document.querySelector(".score")
 canvas.width = window.innerWidth - 100
 canvas.height = window.innerHeight - 150
 
+const dinoLeft = new Image()
+dinoLeft.src = 'dino-run1.PNG'
+const dinoRight = new Image()
+dinoRight.src = 'dino-run2.PNG'
+
 let player = {
   x: 300,
   y: 200,
-  width: 50,
+  width: 59,
   height: 50,
-  draw(){
-    ctx.fillStyle = 'green'
-    ctx.fillRect(this.x, this.y, this.width, this.height)
+  draw(timer){
+    if(parseInt(timer / 30) % 2 == 0){
+      ctx.drawImage(dinoLeft, this.x, this.y-17)
+    }
+    else{
+      ctx.drawImage(dinoRight, this.x, this.y-9)
+    }
   }
 }
+
+const cactus = new Image()
+cactus.src = 'cactus.png'
 
 class obstacle{
   constructor(){
     this.x = 1000
     this.y = 200
-    this.width = 50
+    this.width = 27
     this.height = 50
   }
   draw(){
-    ctx.fillStyle = 'red'
-    ctx.fillRect(this.x, this.y, this.width, this.height)
+    ctx.drawImage(cactus, this.x-13, this.y+2)
   }
 }
 
@@ -39,10 +50,10 @@ let animation
 function moveObstacle(){
   animation = requestAnimationFrame(moveObstacle)
   timer++
-  score.innerText = parseInt(timer / 75)
+  score.innerText = parseInt(timer / 100)
   ctx.clearRect(0,0, canvas.width, canvas.height)
 
-  if(parseInt(timer / 50) % randNum == 0 & parseInt(timer / 50) > 5){
+  if(parseInt(timer / 50) % randNum == 0 & parseInt(timer / 50) > 3){
     let newObstacle = new obstacle()
     obstacleList.push(newObstacle)
     randNum = Math.floor(Math.random() * 10 + 1)
@@ -59,19 +70,19 @@ function moveObstacle(){
     obstacle.draw()
   })
   
-  if(jump == true && player.y > 50){
-    player.y -= 2.5
+  if(jump == true && player.y > 80){
+    player.y -= 3
   } else{
     jump = false
       if(player.y < 200){
-        player.y += 2.5
+        player.y += 3
       }
       else if(player.y == 200){
         jumping = false
       }
   }
 
-  player.draw()
+  player.draw(timer)
 }
 
 moveObstacle()
